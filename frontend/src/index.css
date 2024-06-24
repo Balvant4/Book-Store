@@ -7,3 +7,9 @@
 body {
   font-family: 'Poppins', sans-serif;
 }
+
+/* Example CSS to customize dots */
+.slick-dots {
+  background: white;
+  /* Adjust the position */
+}
