@@ -1,0 +1,22 @@
+{
+  "name": "bookstore",
+  "version": "1.0.0",
+  "description": "mern project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Balvant4/Book-Store.git"
+  },
+  "author": "balvant kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Balvant4/Book-Store/issues"
+  },
+  "homepage": "https://github.com/Balvant4/Book-Store#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

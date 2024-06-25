@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
+import Login from "./Login";
 
 const navItems = (
   <>
     <li>
-      <a>Home</a>
+      <a href="/home">Home</a>
     </li>
     <li>
-      <a>Course</a>
+      <a href="/course">Course</a>
     </li>
     <li>
-      <a>About</a>
+      <a href="/about">About</a>
     </li>
     <li>
-      <a>Contact</a>
+      <a href="/contact">Contact</a>
     </li>
   </>
 );
@@ -95,7 +96,13 @@ const Navbar = () => {
                 </svg>
               </label>
             </div>
-            <a className="btn ml-5">Login</a>
+            <a
+              className="btn ml-5"
+              onClick={() => document.getElementById("my_modal_3").showModal()}
+            >
+              Login
+            </a>
+            <Login />
           </div>
         </div>
       </div>
