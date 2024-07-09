@@ -57,7 +57,7 @@ const createBook = asyncHandler(async (req, res) => {
   });
 
   // Find the created book and exclude the bookPdfUrl field
-  const createdBook = await Book.findById(book._id).select("-bookPdfUrl");
+  const createdBook = await Book.findById(book._id);
 
   if (!createdBook) {
     throw new ApiError(500, "Something went wrong while creating the book");
@@ -69,4 +69,104 @@ const createBook = asyncHandler(async (req, res) => {
     .json(new ApiResponse(201, createdBook, "Book created successfully"));
 });
 
-export { createBook };
+// get all books from the database
+const getAllBooks = asyncHandler(async (req, res) => {
+  const books = await Book.find();
+  return res
+    .status(200)
+    .json(new ApiResponse(200, books, "Books fetched successfully"));
+});
+
+// update book
+const updateBook = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const {
+    bookTitle,
+    autherName,
+    imageUrl,
+    category,
+    bookDescription,
+    bookPdfUrl,
+    publishedDate,
+    pages,
+  } = req.body;
+
+  //validation the input data
+
+  if (
+    [
+      bookTitle,
+      autherName,
+      imageUrl,
+      category,
+      bookDescription,
+      bookPdfUrl,
+      publishedDate,
+      pages,
+    ].some((field) => field?.trim() === "")
+  ) {
+    throw new ApiError(400, "All filds are required");
+  }
+
+  // update book
+  const updatedBook = await Book.findByIdAndUpdate(
+    id,
+    {
+      bookTitle,
+      autherName,
+      imageUrl,
+      category,
+      bookDescription,
+      bookPdfUrl,
+      publishedDate,
+      pages,
+    },
+    { timestamps: true }
+  );
+
+  if (!updatedBook) {
+    throw new ApiError(404, "Book not found");
+  }
+
+  //return a success response
+
+  return res
+    .status(200)
+    .json(new ApiResponse(404, "Book updated successfully"));
+});
+
+// delete book
+const deleteBook = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  //Find the book by id and delete
+  const deletedBook = await Book.findByIdAndDelete(id);
+
+  if (!deletedBook) {
+    throw new ApiError(404, "Book not found");
+  }
+
+  // return a success response
+  return res
+    .status(200)
+    .json(new ApiResponse(200, null, "Book deleted successfully"));
+});
+
+// find data by category
+
+const getBooksByCategory = asyncHandler(async (req, res) => {
+  const { category } = req.params;
+
+  // Find books by category
+  const books = await Book.find({ category });
+
+  if (books.length === 0) {
+    throw new ApiError(404, `No books found in category '${category}'`);
+  }
+
+  // Return a success response
+  return res
+    .status(200)
+    .json(new ApiResponse(200, books, `Books in category '${category}'`));
+});
+export { createBook, getAllBooks, updateBook, deleteBook, getBooksByCategory };

@@ -12,7 +12,7 @@ app.use(
 );
 
 // routes import
-import bookRouter from "../src/routes/user.routes.js";
+import bookRouter from "../src/routes/books.routes.js";
 
 // route declaration
 app.use("/api/books", bookRouter);
