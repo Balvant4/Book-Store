@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 
 const app = express();
+app.use(express.json());
 
 app.use(
   cors({
@@ -11,9 +12,9 @@ app.use(
 );
 
 // routes import
-import userRouter from "../src/routes/user.routes.js";
+import bookRouter from "../src/routes/user.routes.js";
 
 // route declaration
-app.use("api/v1/users", userRouter);
+app.use("/api/books", bookRouter);
 
 export { app };
