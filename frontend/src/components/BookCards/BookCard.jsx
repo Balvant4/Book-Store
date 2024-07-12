@@ -1,5 +1,6 @@
 import React from "react";
 import { FaCartShopping, FaHeart } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const BookCard = ({ books, headline }) => {
   return (
@@ -38,9 +39,13 @@ const BookCard = ({ books, headline }) => {
                 </div>
               </div>
             </div>
-            <button className=" text-white text-[1rem] py-2 bg-[#4f7296]">
-              View
-            </button>
+            <div className=" flex justify-center pb-5">
+              <Link to={``}>
+                <button className=" text-white text-[1rem] px-3 rounded py-2 bg-[#4f7296]">
+                  View
+                </button>
+              </Link>
+            </div>
           </div>
         ))}
       </div>

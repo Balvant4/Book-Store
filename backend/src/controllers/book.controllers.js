@@ -12,7 +12,7 @@ const createBook = asyncHandler(async (req, res) => {
     category,
     bookDescription,
     bookPdfUrl,
-    publishedDate,
+
     pages,
   } = req.body;
 
@@ -25,7 +25,7 @@ const createBook = asyncHandler(async (req, res) => {
       category,
       bookDescription,
       bookPdfUrl,
-      publishedDate,
+
       pages,
     ].some((field) => field?.trim() === "")
   ) {
@@ -52,7 +52,7 @@ const createBook = asyncHandler(async (req, res) => {
     category,
     bookDescription,
     bookPdfUrl,
-    publishedDate, // Corrected to use the actual publishedDate value
+
     pages,
   });
 
@@ -87,7 +87,7 @@ const updateBook = asyncHandler(async (req, res) => {
     category,
     bookDescription,
     bookPdfUrl,
-    publishedDate,
+
     pages,
   } = req.body;
 
@@ -101,7 +101,7 @@ const updateBook = asyncHandler(async (req, res) => {
       category,
       bookDescription,
       bookPdfUrl,
-      publishedDate,
+
       pages,
     ].some((field) => field?.trim() === "")
   ) {
@@ -118,7 +118,7 @@ const updateBook = asyncHandler(async (req, res) => {
       category,
       bookDescription,
       bookPdfUrl,
-      publishedDate,
+
       pages,
     },
     { timestamps: true }
@@ -152,8 +152,25 @@ const deleteBook = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, null, "Book deleted successfully"));
 });
 
-// find data by category
+// get one book
+const getOneBook = asyncHandler(async (req, res) => {
+  const { id } = req.params;
 
+  // Find the book by ID
+  const findOneBook = await Book.findById(id);
+
+  // If the book is not found, throw an error
+  if (!findOneBook) {
+    throw new ApiError(404, "Book not found");
+  }
+
+  // Return a success response with the found book data
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "Book found successfully", findOneBook));
+});
+
+// find data by category
 const getBooksByCategory = asyncHandler(async (req, res) => {
   const { category } = req.params;
 
@@ -169,4 +186,11 @@ const getBooksByCategory = asyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, books, `Books in category '${category}'`));
 });
-export { createBook, getAllBooks, updateBook, deleteBook, getBooksByCategory };
+export {
+  createBook,
+  getAllBooks,
+  updateBook,
+  deleteBook,
+  getBooksByCategory,
+  getOneBook,
+};

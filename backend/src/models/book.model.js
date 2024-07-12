@@ -27,10 +27,7 @@ const bookSchema = new Schema(
       type: String,
       required: true,
     },
-    publishedDate: {
-      type: Date,
-      default: Date.now,
-    },
+
     pages: {
       type: Number,
       required: true,

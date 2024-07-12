@@ -4,6 +4,7 @@ import {
   deleteBook,
   getAllBooks,
   getBooksByCategory,
+  getOneBook,
   updateBook,
 } from "../controllers/book.controllers.js";
 
@@ -14,5 +15,6 @@ router.route("/allbooks").get(getAllBooks);
 router.route("/update/:id").put(updateBook);
 router.route("/delete/:id").delete(deleteBook);
 router.route("/category/:category").get(getBooksByCategory);
+router.route("/onebooks/:id").get(getOneBook);
 
 export default router;
