@@ -6,10 +6,15 @@ import { Link } from "react-router-dom";
 const ManageBook = () => {
   const [allBooks, setAllBooks] = useState([]);
 
-  const fetchBooks = () => {
-    axios("http://localhost:5000/api/books/allbooks")
-      .then((res) => setAllBooks(res.data.data))
-      .catch((error) => console.error("Error fetching books:", error));
+  const fetchBooks = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/books/allbooks"
+      );
+      setAllBooks(response.data.data);
+    } catch (error) {
+      console.log("Error fetching books", error);
+    }
   };
 
   useEffect(() => {
@@ -23,7 +28,7 @@ const ManageBook = () => {
       );
       if (response.status === 200) {
         alert("Data deleted successfully");
-        fetchBooks(); // Re-fetch the books after successful deletion
+        fetchBooks();
       } else {
         console.log("Unexpected response", response);
       }
@@ -42,9 +47,7 @@ const ManageBook = () => {
           <Table.HeadCell>Author</Table.HeadCell>
           <Table.HeadCell>Category</Table.HeadCell>
           <Table.HeadCell>Price</Table.HeadCell>
-          <Table.HeadCell>
-            <span>Edit or Manage</span>
-          </Table.HeadCell>
+          <Table.HeadCell>Edit or Manage</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
           {allBooks.map((book, index) => (
@@ -59,16 +62,16 @@ const ManageBook = () => {
               <Table.Cell>{book.autherName}</Table.Cell>
               <Table.Cell>{book.category}</Table.Cell>
               <Table.Cell>${book.pages}</Table.Cell>
-              <Table.Cell className=" flex items-center gap-6">
+              <Table.Cell className="flex items-center gap-6">
                 <Link
                   to={`/admin/dashboard/edit-book/${book._id}`}
-                  className="font-medium text-cyan-600 hover:underline dark:text-cyan-500 "
+                  className="font-medium text-cyan-600 hover:underline dark:text-cyan-500"
                 >
                   Edit
                 </Link>
                 <Button
                   onClick={() => handleDelete(book._id)}
-                  className=" bg-red-600 rounded"
+                  className="bg-red-600 rounded"
                 >
                   Delete
                 </Button>

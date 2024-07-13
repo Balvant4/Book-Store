@@ -1,27 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 import { Button, Textarea, Label, Select, TextInput } from "flowbite-react";
+import { bookCategories } from "../utils/dashboard/categories";
 
 const UploadBook = () => {
-  const bookCategories = [
-    "Fiction",
-    "Non-Fiction",
-    "Programming",
-    "Science",
-    "Fantasy",
-    "Horror",
-    "Bibliography",
-    "AutoBibliography",
-    "History",
-    "Self-help",
-    "Memoir",
-    "Business",
-    "Children-Book",
-    "Travel",
-    "Religion",
-    "Art and Design",
-  ];
-
   const [selectBookCategories, setSelectBookCategories] = useState(
     bookCategories[0]
   );
@@ -67,23 +49,13 @@ const UploadBook = () => {
       bookPdfUrl,
     };
 
-    console.log(bookObj);
-
     try {
       const response = await axios.post(
         "http://localhost:5000/api/books/add",
-        bookObj,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        bookObj
       );
-
       alert("Book uploaded successfully");
-
       console.log("Book uploaded successfully:", response.data);
-
       // Reset the form after successful upload
       event.target.reset(); // Reset the form
       setFormData({

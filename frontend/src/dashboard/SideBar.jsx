@@ -11,12 +11,13 @@ import {
   HiUser,
   HiViewBoards,
 } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 const SideBar = () => {
   return (
     <Sidebar aria-label="Sidebar with content separator example">
       <SidebarLogo href="#" img={userImage} imgAlt="flowbite logo">
-        <p>Flowbite</p>
+        <Link to={"/"}>Home</Link>
       </SidebarLogo>
       <Sidebar.Items>
         <Sidebar.ItemGroup>
