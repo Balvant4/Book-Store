@@ -10,6 +10,7 @@ import Dashboard from "../dashboard/Dashboard";
 import UploadBook from "../dashboard/UploadBook";
 
 import ManageBook from "../dashboard/ManageBook";
+import EditBook from "../dashboard/EditBook";
 
 const router = createBrowserRouter([
   {
@@ -53,8 +54,12 @@ const router = createBrowserRouter([
         element: <ManageBook />,
       },
       {
-        path: "/admin/dashboard/edit-book/:id",
+        path: "/admin/dashboard/manage",
         element: <ManageBook />,
+      },
+      {
+        path: "/admin/dashboard/edit-book/:id",
+        element: <EditBook />,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/books/onebooks/${params.id}`),
       },

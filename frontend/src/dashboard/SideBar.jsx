@@ -27,7 +27,7 @@ const SideBar = () => {
             Upload Book
           </Sidebar.Item>
           <Sidebar.Item href="/admin/dashboard/manage" icon={HiInbox}>
-            Manage BOok
+            Manage Book
           </Sidebar.Item>
           <Sidebar.Item href="#" icon={HiUser}>
             Users
